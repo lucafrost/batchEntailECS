@@ -8,8 +8,8 @@ def nonEntailedClaimsQuery():
         "bool": {
           "must_not": [
             {
-              "exists": {
-                "field": "entailStatus"
+              "match": {
+                "entailStatus": "V2-BugSquash"
               }
             },
               {
@@ -50,8 +50,8 @@ def randomNonEntailedClaimsQuery():
               ],
               "must_not": [
                 {
-                  "exists": {
-                    "field": "entailStatus"
+                  "match": {
+                    "entailStatus": "V2-BugSquash"
                   }
                 },
                 {

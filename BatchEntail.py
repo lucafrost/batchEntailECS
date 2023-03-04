@@ -81,6 +81,7 @@ def bulkEntail(num_docs, sample_size):
     for idx, hit in enumerate(response["responses"]):
         hypClaims = hit["hits"]["hits"]
         hypClaims = [doc for doc in hypClaims if doc["_score"] <= 1.95]
+        p = premiseClaims[idx]
         if len(hypClaims) > sample_size:
             scores = [d["_score"] for d in hypClaims]
             score_counts, score_bins = np.histogram(scores, bins=20)
@@ -179,19 +180,24 @@ def bulkEntail(num_docs, sample_size):
                 agg.append(calc["classConfidence"]["entail"])
             elif calc["verdict"] == "contradict":
                 agg.append(-calc["classConfidence"]["contradict"])
+        if len(agg) > 0:
+            agg = np.mean(agg)
+        else:
+            agg = 0.0
         bulk_updates.append({ # add the update data to `bulk_updates`
             "_op_type": "update",
             "_index": "wpc2",
             "_id": k,
             "_routing": routing,
             "doc": {
-                "entailStatus": "aggV1-manualEC2",
+                "entailStatus": "V2-BugSquash",
                 "consensus": {
-                    "aggregate": sum(agg)/len(agg),
+                    "aggregate": agg,
                     "allCalcs": v
                 }
             }
         })
+        print(f"Updated claim {k} with {len(v)} entailments")
     # send bulk request
     response = helpers.bulk(client, bulk_updates)
     end = time.time()
