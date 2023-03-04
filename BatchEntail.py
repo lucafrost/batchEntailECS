@@ -1,3 +1,5 @@
+print("HELLO WORLD!")
+
 from OpenSearchQueries import knnClaimsByTopicExclNFS, nonEntailedClaimsQuery, randomNonEntailedClaimsQuery
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from torch.utils.data import Dataset, DataLoader
