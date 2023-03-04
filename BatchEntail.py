@@ -2,7 +2,7 @@ from OpenSearchQueries import knnClaimsByTopicExclNFS, nonEntailedClaimsQuery, r
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from torch.utils.data import Dataset, DataLoader
 from opensearchpy import OpenSearch, helpers
-from IPython.display import clear_output
+# from IPython.display import clear_output
 from datetime import datetime
 from pprint import pprint
 from wasabi import msg
@@ -17,7 +17,7 @@ import time
 import ast
 
 # connect to OpenSearch cluster
-shh = boto3.client("secretsmanager")
+shh = boto3.client("secretsmanager", region_name="eu-west-2")
 creds = shh.get_secret_value(SecretId='dev/OpenSearch/lucaRW')['SecretString']
 usr, pwd = ast.literal_eval(creds).values()
 client = OpenSearch("https://opensearch.whisp.dev",
