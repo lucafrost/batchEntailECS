@@ -6,10 +6,9 @@ filelock==3.9.0
 huggingface-hub==0.12.1
 idna==3.4
 jmespath==1.0.1
-numpy @ file:///home/conda/feedstock_root/build_artifacts/numpy_1675642515540/work
+numpy
 opensearch-py==2.2.0
 packaging==23.0
-Pillow @ file:///home/conda/feedstock_root/build_artifacts/pillow_1675487152289/work
 python-dateutil==2.8.2
 PyYAML==6.0
 regex==2022.10.31
