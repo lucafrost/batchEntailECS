@@ -16,8 +16,12 @@ import json
 import time
 import ast
 
+AWS_ACCESS_KEY_ID="ASIAVF6FLOVS2GGRY5ZE"
+AWS_SECRET_ACCESS_KEY="Eo7sgv8+xKMkkLJ9KVrZilg8vpX53Pges/UwFRmN"
+AWS_SESSION_TOKEN="IQoJb3JpZ2luX2VjEDMaCWV1LXdlc3QtMiJIMEYCIQDM6LAepanYlLZWx49/CO51tfEONTZlOcIpYxvizvel4QIhAJEhopCfbNQpeOKI/ZV8d52jUz1XRS74Qe+MUXjbbxLlKvUCCNz//////////wEQABoMMzU2MzU5MzA0NTQ5IgxENGJq/peCKsDsbY8qyQLZ6wJXrbP0MKjuQcesp6U9aD7QK933Mo9GnkN++TOI2hP2g0kyScd406zLOU4QWrRy3HGicBzr9i4ZDHTD1v4Z7RLetGGTmHrQijzKoK3yip4J2aTuYGg+JPRE5DVorySRwtZ53eTO+Yj+wqxA8TxpVc2oTrKuzOKjd0rR8ECRlSmpIiOTPjqApk+wNiddGga95dxjJAE4TjqZTWf9lyaQb+myHFYo053GCL9wNDe3v1L7MljvqI0WZxV6+E+CUQ1pQbLoZ2HeGEgFUZ8y7vqalVP5MtyMClpHRv27d+WlTeuV44z+mDaBmfGcZH8bhiMOrX+I0+YR3/DxB1ig5VRL7GgC4Xu424U86z8GuS/7U0cQekul7OZX5ZVL968PjgKFvZiA1WTnV1gBYcRiM7elgtz6d1G5C+vOcOyDoFWgWzBdMuzdCjl3+DCopY6gBjqmAZL2O+61f7wXCH75x/BbJZ97iJaYoChB79GBlABD2tRYySkhbPvAG8/r+4LfT3qJFh3roYZDL8BxzQLnjVZ0nbMdxsYUKC5Tt13iMvvJJmOPQTKC/Geg4qdL2ZSyCgXf0aB6I6byY8jzQvQn2zqMCA3HDaWXDSAUgYnWWWr0rTtFYiYBabuPedpdHQROpPgq3bbNDsXTAFkalGvl7Dk521DFSzOQy24="
+
 # connect to OpenSearch cluster
-shh = boto3.client("secretsmanager", region_name="eu-west-2")
+shh = boto3.client("secretsmanager", region_name="eu-west-2", aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY, aws_session_token=AWS_SESSION_TOKEN)
 creds = shh.get_secret_value(SecretId='dev/OpenSearch/lucaRW')['SecretString']
 usr, pwd = ast.literal_eval(creds).values()
 client = OpenSearch("https://opensearch.whisp.dev",
@@ -181,7 +185,7 @@ def bulkEntail(num_docs, sample_size):
             "_id": k,
             "_routing": routing,
             "doc": {
-                "entailStatus": "aggV1-jupyterTest",
+                "entailStatus": "aggV1-manualEC2",
                 "consensus": {
                     "aggregate": sum(agg)/len(agg),
                     "allCalcs": v
