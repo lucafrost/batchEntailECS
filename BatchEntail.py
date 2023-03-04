@@ -198,6 +198,7 @@ def bulkEntail(num_docs, sample_size):
             }
         })
         print(f"Updated claim {k} with {len(v)} entailments")
+        msg.good(f"Updated claim {k} with {len(v)} entailments")
     # send bulk request
     response = helpers.bulk(client, bulk_updates)
     end = time.time()
